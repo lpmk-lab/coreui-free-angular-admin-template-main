@@ -1,0 +1,77 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center" style="background-image:  url('assets/img/background/Rms_login_background.jpg'); height: 100%;background-position: center;background-repeat: no-repeat;background-size: cover;">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form #customStylesForm="ngForm"
+              (ngSubmit)="onSubmit1()"
+              [validated]="customStylesValidated"
+              cForm
+              class="row g-3 needs-validation"
+        >
+                <h2>Smart Restaurant</h2>
+                <p class="text-medium-emphasis">Sign In to your account</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="username" cFormControl placeholder="Username" aria-describedby="inputGroupPrepend"
+                  cFormControl
+                  id="validationCustomUsername"
+                  required
+                  type="text"
+                  [(ngModel)]="username"
+                  name="username"/>
+                  <c-form-feedback [valid]="false">Please fill a username.</c-form-feedback>
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Password"
+                    type="password"
+                    aria-describedby="inputGroupPrepend"
+                    cFormControl
+                    id="validationPassword"
+                    required
+
+                    [(ngModel)]="password"
+                    name="password"/>
+                    <c-form-feedback [valid]="false">Please fill a password.</c-form-feedback>
+
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary" (click)="onSubmit1()">
+                      Login
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link">
+                      Forgot password?
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-primary py-5"style="background-image:  url('assets/img/background/restaurant-logo.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+            <c-card-body class="text-center">
+              <div >
+
+                <!-- <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
+                  Register Now!
+                </button> -->
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
