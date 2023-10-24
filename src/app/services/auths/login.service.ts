@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
+import{ApiServiceService} from "../Common/api-service.service"
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private apiService:ApiServiceService) { }
   public doLogin(obj: object):any{
-    const url = 'http://localhost:5189/auth/login';
-    return this.http.post<any>(url, obj);
+    const url = '/auth/login';
+    return this.apiService.PostMethod(url,obj)
+
   }
 }
