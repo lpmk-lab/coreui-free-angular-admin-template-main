@@ -21,6 +21,7 @@ import {
   PopoverModule,
   ProgressModule,
   SharedModule,
+
   SpinnerModule,
   TableModule,
   TabsModule,
@@ -101,5 +102,6 @@ import { BaseRoutingModule } from './base-routing.module';
     TabsComponent,
     PlaceholdersComponent,
   ],
+
 })
 export class BaseModule {}

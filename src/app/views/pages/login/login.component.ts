@@ -3,6 +3,7 @@ import{LoginService} from '../../../services/auths/login.service'
 import{AlertServiceService} from "../../../services/Common/alert-service.service"
 import{LocalStorageService} from "../../../services/Common/local-storage.service"
 import { Router } from '@angular/router';
+import { LoaderService} from '../../../services/Common/loader.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,8 @@ export class LoginComponent {
     private loginService: LoginService,
     private AlertService:AlertServiceService,
     private routerService:Router,
-    private localStorageService:LocalStorageService
+    private localStorageService:LocalStorageService,
+    public Loader:LoaderService
     ) { }
   onSubmit1() {
     this.customStylesValidated = true;
