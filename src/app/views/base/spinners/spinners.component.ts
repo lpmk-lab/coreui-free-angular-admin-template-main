@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-
+import { Component ,ViewEncapsulation } from '@angular/core';
+import { LoaderService} from '../../../services/Common/loader.service'
 @Component({
-  selector: 'app-spinners',
-  templateUrl: './spinners.component.html',
-  styleUrls: ['./spinners.component.scss']
+  selector: 'app-spinner',
+  templateUrl: './spinner.component.html',
+  styleUrls: ['./spinner.component.css'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
-export class SpinnersComponent {
-
-  constructor() { }
-
+export class SpinnerComponent {
+  constructor(public loader: LoaderService) { }
 }

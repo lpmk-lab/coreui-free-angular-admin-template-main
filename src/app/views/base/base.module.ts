@@ -45,7 +45,7 @@ import { PaginationsComponent } from './paginations/paginations.component';
 import { PlaceholdersComponent } from './placeholders/placeholders.component';
 import { PopoversComponent } from './popovers/popovers.component';
 import { ProgressComponent } from './progress/progress.component';
-import { SpinnersComponent } from './spinners/spinners.component';
+
 import { TablesComponent } from './tables/tables.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { TabsComponent } from './tabs/tabs.component';
@@ -95,7 +95,7 @@ import { BaseRoutingModule } from './base-routing.module';
     PaginationsComponent,
     PopoversComponent,
     ProgressComponent,
-    SpinnersComponent,
+
     TablesComponent,
     TooltipsComponent,
     TabsComponent,

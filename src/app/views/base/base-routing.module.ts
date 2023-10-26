@@ -11,7 +11,7 @@ import { NavsComponent } from './navs/navs.component';
 import { PaginationsComponent } from './paginations/paginations.component';
 import { PopoversComponent } from './popovers/popovers.component';
 import { ProgressComponent } from './progress/progress.component';
-import { SpinnersComponent } from './spinners/spinners.component';
+;
 import { TablesComponent } from './tables/tables.component';
 import { TooltipsComponent } from './tooltips/tooltips.component';
 import { TabsComponent } from './tabs/tabs.component';
@@ -106,13 +106,13 @@ const routes: Routes = [
           title: 'Progress',
         },
       },
-      {
-        path: 'spinners',
-        component: SpinnersComponent,
-        data: {
-          title: 'Spinners',
-        },
-      },
+      // {
+      //   path: 'spinners',
+      //   component: SpinnersComponent,
+      //   data: {
+      //     title: 'Spinners',
+      //   },
+      // },
       {
         path: 'tables',
         component: TablesComponent,

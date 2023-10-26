@@ -3,9 +3,9 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import{RequestInterceptorService} from "../app/services/Common/request-interceptor.service"
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
@@ -44,6 +44,7 @@ const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
   DefaultLayoutComponent
+
 ];
 
 @NgModule({
@@ -82,6 +83,7 @@ const APP_CONTAINERS = [
       provide: LocationStrategy,
       useClass: HashLocationStrategy
     },
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true },
     IconSetService,
     Title
   ],

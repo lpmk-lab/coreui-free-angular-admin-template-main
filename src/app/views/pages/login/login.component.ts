@@ -38,15 +38,6 @@ export class LoginComponent {
        this.localStorageService.set("userData",JSON.stringify(JsonUser))
 
        this.routerService.navigate(['dashboard'])
-      },
-      (error:any) => {                              //Error callback
-        if(error.error.title=='InvalidCredentials')
-        {
-                this.AlertService.tinyAlert("UserName or Password is incorrect!")
-        }
-
-
-        //throw error;   //You can also throw the error to a global error handler
       })
     }
 
