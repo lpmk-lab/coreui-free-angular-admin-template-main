@@ -7,19 +7,23 @@ import {
 import { finalize } from 'rxjs/operators';
 import { LoaderService } from '../Common/loader.service';
 import { Observable } from 'rxjs';
-
+import { NgxSpinnerService } from "ngx-spinner";
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class RequestInterceptorService implements HttpInterceptor {
 
-  constructor(  private AlertService:AlertServiceService,private loader: LoaderService){
+  constructor(  private AlertService:AlertServiceService,
+    private loader: LoaderService,
+    private spinner: NgxSpinnerService){
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
       this.loader.showLoader();
+      this.spinner.show();
+
       return next.handle(req).pipe(
-        finalize(() => this.loader.hideLoader()),
+        finalize(() => this.spinner.hide()),
         catchError((error) => this.errorHandler(error)));
   }
 
