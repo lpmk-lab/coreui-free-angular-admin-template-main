@@ -70,6 +70,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/pages.module').then((m) => m.PagesModule)
       },
+      {
+        path: 'baselines',
+        loadChildren: () =>
+          import('./views/RMS/BaseLine/base-line/base-line.module').then((m) => m.BaseLineModule)
+      },
     ]
   },
   {

@@ -1,0 +1,99 @@
+<c-container>
+  <c-card class="mb-4">
+    <c-card-header>
+  <c-nav variant="tabs">
+    <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Tables</a>
+    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Add</a>
+
+  </c-nav>
+  <c-tab-content #tabContent="cTabContent">
+    <c-tab-pane class="p-3">
+
+    <div class="row mt-3" >
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="search"
+        (keyup)="GetTableList()" placeholder="Search By Name">
+      </div>
+      <div class="col-md-2">
+       <select id="status" class="form-select" [(ngModel)]="status" (change)="GetTableList()">
+
+        <option value="All" >All</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+       </select>
+       <label for="status"></label>
+      </div>
+    </div>
+
+
+
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-hover" cdk-table [dataSource]="dataSource">
+
+            <ng-container cdkColumnDef="name">
+              <th cdk-header-cell *cdkHeaderCellDef>
+                <span class="cursor-pointer" (click)="doSort('name')">Name</span>
+                <span *ngIf="sortKey==='name'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.name}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef>{{rowCount}} rows</th>
+            </ng-container>
+            <ng-container cdkColumnDef="username">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('username')">User Name</span>
+                <span *ngIf="sortKey==='username'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+                </th>
+
+              <td cdk-cell *cdkCellDef="let element">{{element.username}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <ng-container cdkColumnDef="email">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('email')">Email</span>
+              <span *ngIf="sortKey==='email'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.email}}</td>
+              <th class='th-footer'cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <ng-container cdkColumnDef="status">
+              <th cdk-header-cell *cdkHeaderCellDef>Status </th>
+                <td cdk-cell *cdkCellDef="let element">
+                  <label class="label label-success" *ngIf="element.status==='Active'">Active</label>
+                  <label class="label label-danger" *ngIf="element.status==='Inactive'">Inactive</label>
+
+                </td>
+                <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+
+            </ng-container>
+            <!-- <ng-container cdkColumnDef="id" style="display: none;">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('id')">id</span>
+              <span *ngIf="sortKey==='id'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.id}}</td>
+            </ng-container> -->
+            <tr cdk-header-row *cdkHeaderRowDef="DisplayedColumns"></tr>
+            <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns"></tr>
+            <tr cdk-footer-row *cdkFooterRowDef="DisplayedColumns; sticky: true"></tr>
+          </table>
+          <p *ngIf="(dataSource | async)?.length == 0" class="text-center">No Data Found</p>
+        </div>
+      </div>
+
+
+</div>
+    </c-tab-pane>
+    <c-tab-pane class="p-3">
+      This is some placeholder content the <strong>Profile</strong> tab's associated content. Clicking another
+      tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the
+      content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.
+    </c-tab-pane>
+
+  </c-tab-content>
+</c-card-header>
+</c-card>
+
+</c-container>

@@ -34,7 +34,7 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule,
+  UtilitiesModule
 
 
 } from '@coreui/angular';
@@ -68,7 +68,6 @@ const APP_CONTAINERS = [
     UtilitiesModule,
     ButtonGroupModule,
     ReactiveFormsModule,
-    SidebarModule,
     SharedModule,
     TabsModule,
     ListGroupModule,
