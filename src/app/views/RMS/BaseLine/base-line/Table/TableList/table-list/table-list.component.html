@@ -23,6 +23,39 @@
        </select>
        <label for="status"></label>
       </div>
+      <div class="col-md-1 custom-drop-down" >
+        <div class="d-inline-block" [autoClose]="true" ngbDropdown>
+          <button class="btn btn-outline-dark custom-select" ngbDropdownToggle>
+
+            <svg cIcon name="cilFilter" size="sm" title="Paper Plane Icon"></svg>
+
+        </button>
+        <div ngbDropdownMenu>
+          <div *ngFor="let column of columnList;let i=index">
+            <input id="checkbox{{i}}" type="checkbox" class="custom-control-input"
+            [(ngModel)]="column.visible" (change)="persistColumnPreference()" value=""/>
+            <label for="checkbox{{i}}" class="custom-control-lable">{{column.label}}</label>
+
+
+          </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="col-md-2 text-center">
+          <div class="btn-group" role="group">
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="PDF" (click)="downloadAsPdf('download')">
+           <svg cIcon name="cilSave" size="sm" title="Paper Plane Icon"></svg></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Print" (click)="downloadAsPdf('print')">
+          <svg cIcon name="cilPrint" size="sm" title="Paper Plane Icon"></svg></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Excel" (click)="downloadAsExcel()">
+          <svg cIcon name="cilFile" size="sm" title="Paper Plane Icon"></svg></button>
+          </div>
+
+        </div>
     </div>
 
 
