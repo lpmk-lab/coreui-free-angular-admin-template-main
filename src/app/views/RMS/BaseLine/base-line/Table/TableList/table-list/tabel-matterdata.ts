@@ -2,9 +2,15 @@ export interface ITable
 {
   [index: string]: string;
 
-  id: string;
+  tableId: string;
+  tableName:string;
+
+  tableNo: string;
+  location: string;
   status:string;
-  name: string;
-  username: string;
-  email: string;
+  createdByCode: string;
+  createdOn:string;
+  modifiedOn:string;
+  modifiedByCode:string;
+
 }

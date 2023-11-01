@@ -2,9 +2,10 @@ import { Component, OnInit} from '@angular/core';
 import { BehaviorSubject, retry } from 'rxjs';
 import{LocalStorageService} from '../../../../../../../services/Common/local-storage.service'
 import{ExportServiceService} from '../../../../../../../services/Common/export-service.service'
+import{TableService} from '../../../../../../../services/Master/table.service'
 
 import { IconSetService } from '@coreui/icons-angular';
-import { cilFilter,cilPrint,cilSave,cilFile} from '@coreui/icons';
+import { cilFilter,cilPrint,cilSave,cilFile,cilReload} from '@coreui/icons';
 import { ITable } from './tabel-matterdata';
 @Component({
   selector: 'app-table-list',
@@ -14,41 +15,17 @@ import { ITable } from './tabel-matterdata';
 export class TableListComponent implements OnInit{
   constructor(private localStorageService:LocalStorageService,
     public iconSet: IconSetService,
-    private exportService:ExportServiceService){
-      iconSet.icons = { cilFilter,cilPrint,cilSave,cilFile };
+    private exportService:ExportServiceService,
+    private tableService:TableService){
+      iconSet.icons = { cilFilter,cilPrint,cilSave,cilFile ,cilReload};
   }
-  public dataList:ITable[] = [
-    {
-      id: "1",
-      status:'Inactive',
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
-    },
-    {
-      id: "2",
-      status:'Active',
-      name: "Ervin Howell",
-      username: "Antonette",
-      email: "Shanna@melissa.tv"
-    },
-
-    // ... list of items
-
-    {
-      id: "11",
-      status:'Active',
-      name: "Nicholas DuBuque",
-      username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz"
-    }
-  ];
+  public dataList:ITable[] = [];
 
 readonly STORAGE_KEY:string='Table_data';
 public columnList=[
-   {field:'name',label:'Name',visible:true},
-   {field:'username',label:'User Name',visible:true},
-   {field:'email',label:'Email',visible:true},
+   {field:'tableName',label:'Table Name',visible:true},
+   {field:'tableNo',label:'Table No',visible:true},
+   {field:'location',label:'Location',visible:true},
    {field:'status',label:'status',visible:true},
 ]
 public dataSource =new BehaviorSubject<ITable[]>([]);
@@ -68,11 +45,27 @@ get DisplayedColumns(){
   .map(column=>column.field)
   ;
 }
+DownLoadtableList(){
+  this.tableService.GetAllTable().subscribe((response: any) => {
+    this.dataList=response;
+    if(this.localStorageService.get(this.STORAGE_KEY)!=null){
+      const preferences=JSON.parse(this.localStorageService.get(this.STORAGE_KEY)||'');
+      this.columnList=this.columnList.map((column)=>{
+        const preference=preferences.find((data:any) => data.field== column.field);
+        if(preference){
+          column.visible=preference.visible;
+        }
+        return column;
+      });
+    }
+    this.GetTableList();
+  })
+}
 GetTableList():void{
   const items=this.dataList.filter((tables:ITable)=>{
     let allowed=this.status==='All' || tables.status===this.status;
 if(allowed && this.search){
-  const matches=tables.username.toLocaleUpperCase().match(this.search.toLocaleUpperCase())||tables.email.toLocaleUpperCase().match(this.search.toLocaleUpperCase());
+  const matches=tables.tableName.toLocaleUpperCase().match(this.search.toLocaleUpperCase())||tables.location.toLocaleUpperCase().match(this.search.toLocaleUpperCase());
   allowed = matches != null && matches.length>0;
 }
 return allowed;
@@ -113,17 +106,8 @@ doSort(field:string):void{
   this.GetTableList();
 }
 ngOnInit(): void {
-  if(this.localStorageService.get(this.STORAGE_KEY)!=null){
-    const preferences=JSON.parse(this.localStorageService.get(this.STORAGE_KEY)||'');
-    this.columnList=this.columnList.map((column)=>{
-      const preference=preferences.find((data:any) => data.field== column.field);
-      if(preference){
-        column.visible=preference.visible;
-      }
-      return column;
-    });
-  }
-  this.GetTableList();
+  this.DownLoadtableList();
+
 }
 
 persistColumnPreference():void{
@@ -133,9 +117,9 @@ getRowList(){
   let data=this.dataSource.value.map((data:ITable)=>{
     return{
 
-      name: data.name,
-      username: data.username,
-      email:data.email,
+      tableName: data.tableName,
+      tableNo: data.tableNo,
+      location:data.location,
       status:data.status,
     };
   })
@@ -151,7 +135,7 @@ downloadAsPdf(type:string):void{
   let data=this.getRowList();
   const rows:any[]=[];
   data.forEach((element,index,array)=>{
-    rows.push([element.name,element.username,element.email,element.status])
+    rows.push([element.tableName,element.tableNo,element.location,element.status])
   })
 
   const rowList=rows;
@@ -186,4 +170,8 @@ downloadAsExcel():void{
   link.href=objectUrl;
   link.click();
 }
+
 }
+
+
+

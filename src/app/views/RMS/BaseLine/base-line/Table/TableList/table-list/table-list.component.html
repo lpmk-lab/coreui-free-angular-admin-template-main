@@ -12,7 +12,7 @@
     <div class="row mt-3" >
       <div class="col-md-3">
         <input type="text" class="form-control" [(ngModel)]="search"
-        (keyup)="GetTableList()" placeholder="Search By Name">
+        (keyup)="GetTableList()" placeholder="Search By Table Name">
       </div>
       <div class="col-md-2">
        <select id="status" class="form-select" [(ngModel)]="status" (change)="GetTableList()">
@@ -56,6 +56,13 @@
           </div>
 
         </div>
+        <div class="col-md-1 text-left">
+         <div>
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="Refresh" (click)="DownLoadtableList()">
+           <svg cIcon name="cilReload" size="sm" title="Paper Plane Icon"></svg></button>
+          </div>
+          </div>
     </div>
 
 
@@ -66,29 +73,29 @@
         <div class="table-responsive">
           <table class="table table-hover" cdk-table [dataSource]="dataSource">
 
-            <ng-container cdkColumnDef="name">
+            <ng-container cdkColumnDef="tableName">
               <th cdk-header-cell *cdkHeaderCellDef>
-                <span class="cursor-pointer" (click)="doSort('name')">Name</span>
-                <span *ngIf="sortKey==='name'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+                <span class="cursor-pointer" (click)="doSort('tableName')">Table Name</span>
+                <span *ngIf="sortKey==='tableName'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
               </th>
-              <td cdk-cell *cdkCellDef="let element">{{element.name}}</td>
+              <td cdk-cell *cdkCellDef="let element">{{element.tableName}}</td>
               <th class='th-footer' cdk-footer-cell *cdkFooterCellDef>{{rowCount}} rows</th>
             </ng-container>
-            <ng-container cdkColumnDef="username">
+            <ng-container cdkColumnDef="tableNo">
               <th cdk-header-cell *cdkHeaderCellDef>
-              <span class="cursor-pointer" (click)="doSort('username')">User Name</span>
-                <span *ngIf="sortKey==='username'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              <span class="cursor-pointer" (click)="doSort('tableNo')">Table No</span>
+                <span *ngIf="sortKey==='tableNo'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
                 </th>
 
-              <td cdk-cell *cdkCellDef="let element">{{element.username}}</td>
+              <td cdk-cell *cdkCellDef="let element">{{element.tableNo}}</td>
               <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
             </ng-container>
-            <ng-container cdkColumnDef="email">
+            <ng-container cdkColumnDef="location">
               <th cdk-header-cell *cdkHeaderCellDef>
-              <span class="cursor-pointer" (click)="doSort('email')">Email</span>
-              <span *ngIf="sortKey==='email'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              <span class="cursor-pointer" (click)="doSort('location')">location</span>
+              <span *ngIf="sortKey==='location'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
               </th>
-              <td cdk-cell *cdkCellDef="let element">{{element.email}}</td>
+              <td cdk-cell *cdkCellDef="let element">{{element.location}}</td>
               <th class='th-footer'cdk-footer-cell *cdkFooterCellDef></th>
             </ng-container>
             <ng-container cdkColumnDef="status">
@@ -120,9 +127,8 @@
 </div>
     </c-tab-pane>
     <c-tab-pane class="p-3">
-      This is some placeholder content the <strong>Profile</strong> tab's associated content. Clicking another
-      tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the
-      content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.
+
+  <app-table-detail></app-table-detail>
     </c-tab-pane>
 
   </c-tab-content>

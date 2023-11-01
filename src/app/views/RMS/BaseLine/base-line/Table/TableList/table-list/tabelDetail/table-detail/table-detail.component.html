@@ -1,0 +1,52 @@
+<c-container>
+  <c-card class="mb-4">
+    <c-card-header>
+      <form cForm>
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" for="Tabelname">
+            Table Name
+          </label>
+          <c-col [sm]="4">
+            <input cFormControl id="Tabelname" type="text" />
+          </c-col>
+          <label cLabel="col" cCol [sm]="2" for="TabelNo" style="text-align: right;">
+            Tabel No
+          </label>
+          <c-col [sm]="4">
+            <input cFormControl id="TabelNo" type="text" />
+          </c-col>
+        </c-row>
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" for="status" >
+            Status
+          </label>
+          <c-col [sm]="4">
+          <select aria-label="Default select example" id="status" cSelect>
+
+            <option value="Active">Active</option>
+            <option value="InActive">InActive</option>
+
+          </select>
+
+          </c-col>
+          <label cLabel="col" cCol [sm]="2" for="location" style="text-align: right;">
+            location
+          </label>
+          <c-col [sm]="4">
+            <textarea cFormControl id="location" rows="3"></textarea>
+          </c-col>
+        </c-row>
+        <c-row class="mb-3">
+          <c-col [sm]="2"></c-col>
+          <c-col [sm]="2"><button cButton  color="success" type="submit">Save</button></c-col>
+
+      </c-row>
+
+
+      </form>
+
+</c-card-header>
+</c-card>
+
+</c-container>
+
