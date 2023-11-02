@@ -7,13 +7,13 @@
             Table Name
           </label>
           <c-col [sm]="4">
-            <input cFormControl id="Tabelname" type="text" />
+            <input cFormControl id="Tabelname" type="text" [(ngModel)]="data.tableName" name="tablename" />
           </c-col>
           <label cLabel="col" cCol [sm]="2" for="TabelNo" style="text-align: right;">
             Tabel No
           </label>
           <c-col [sm]="4">
-            <input cFormControl id="TabelNo" type="text" />
+            <input cFormControl id="TabelNo" type="text"  [(ngModel)]="data.tableNo" name="tableno" />
           </c-col>
         </c-row>
         <c-row class="mb-3">
@@ -21,10 +21,10 @@
             Status
           </label>
           <c-col [sm]="4">
-          <select aria-label="Default select example" id="status" cSelect>
+          <select aria-label="Default select example" id="status" [(ngModel)]="data.status" name="status" cSelect>
 
             <option value="Active">Active</option>
-            <option value="InActive">InActive</option>
+            <option value="Inactive">Inactive</option>
 
           </select>
 
@@ -33,12 +33,14 @@
             location
           </label>
           <c-col [sm]="4">
-            <textarea cFormControl id="location" rows="3"></textarea>
+            <textarea cFormControl id="location" rows="3" [(ngModel)]="data.location" name="location"></textarea>
           </c-col>
         </c-row>
         <c-row class="mb-3">
           <c-col [sm]="2"></c-col>
-          <c-col [sm]="2"><button cButton  color="success" type="submit">Save</button></c-col>
+          <c-col [sm]="1"><button cButton  color="success" (click)="Save()" type="submit">Save</button></c-col>
+          <c-col [sm]="1"><button cButton  color="primary" (click)="New()" type="submit">New</button></c-col>
+          <c-col [sm]="1"><button cButton  color="danger" (click)="Save()" type="submit">Delete</button></c-col>
 
       </c-row>
 
@@ -47,6 +49,20 @@
 
 </c-card-header>
 </c-card>
+<c-card *ngIf="data.tableId!=''">
+  <c-card-body>
+    <c-row>
+      <c-col>Created this record by {{data.createdByCode}} On  {{data.createdOn| date:'medium'}}</c-col>
+
+    </c-row>
+    <c-row>
+      <c-col>Modified this record by {{data.modifiedByCode}} On {{data.modifiedOn| date:'medium'}} </c-col>
+
+    </c-row>
+
+  </c-card-body>
+</c-card>
+
 
 </c-container>
 

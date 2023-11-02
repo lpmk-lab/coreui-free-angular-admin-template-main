@@ -12,4 +12,9 @@ export class TableService {
     return this.apiService.GetMothod(url)
 
   }
+  public Save(obj: object):any{
+    const url = '/master/tabels/Save';
+    return this.apiService.PostMethodWithTokenHeader(url,obj)
+
+  }
 }

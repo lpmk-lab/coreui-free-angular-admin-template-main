@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import{AlertServiceService} from "../Common/alert-service.service"
+import { Router } from '@angular/router';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest,HttpErrorResponse
 } from '@angular/common/http';
@@ -14,7 +15,8 @@ export class RequestInterceptorService implements HttpInterceptor {
 
   constructor(  private AlertService:AlertServiceService,
     private loader: LoaderService,
-    private spinner: NgxSpinnerService){
+    private spinner: NgxSpinnerService,
+    private routerService:Router,){
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler):
@@ -32,10 +34,15 @@ export class RequestInterceptorService implements HttpInterceptor {
       // Do something with the error
       if (error instanceof HttpErrorResponse)
       {
+        if(error.error==null && error.status==401){
+        this.AlertService.tinyAlert("Your account is expired, login again!")
+        this.routerService.navigate(['login'])
+      }
         if(error.error.title=='InvalidCredentials')
         {
                 this.AlertService.tinyAlert("UserName or Password is incorrect!")
         }
+
       }
 
     throw error;

@@ -13,13 +13,29 @@ import { ITable } from './tabel-matterdata';
   styleUrls: ['./table-list.component.scss']
 })
 export class TableListComponent implements OnInit{
-  constructor(private localStorageService:LocalStorageService,
+  constructor(
+    private localStorageService:LocalStorageService,
     public iconSet: IconSetService,
     private exportService:ExportServiceService,
-    private tableService:TableService){
+    private tableService:TableService
+    ){
       iconSet.icons = { cilFilter,cilPrint,cilSave,cilFile ,cilReload};
   }
   public dataList:ITable[] = [];
+
+    public selecteddata:ITable={
+      tableId: "",
+      tableName: "",
+
+      tableNo: "",
+      location: "",
+      status: "Active",
+      createdByCode: "",
+      createdOn: "",
+      modifiedOn:"",
+      modifiedByCode: "",
+    }
+
 
 readonly STORAGE_KEY:string='Table_data';
 public columnList=[
@@ -37,7 +53,7 @@ public sortKey="";
 public sortDirection="";
 
 public rowCount=0;
-
+activePane = 0;
 
 get DisplayedColumns(){
   return this.columnList
@@ -170,8 +186,12 @@ downloadAsExcel():void{
   link.href=objectUrl;
   link.click();
 }
-
+gotoDetail(element:ITable):void{
+ this.selecteddata=element;
+ this.activePane = 1;
 }
+}
+
 
 
 

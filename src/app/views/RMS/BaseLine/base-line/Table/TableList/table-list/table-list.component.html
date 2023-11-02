@@ -2,11 +2,11 @@
   <c-card class="mb-4">
     <c-card-header>
   <c-nav variant="tabs">
-    <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" cNavLink>Tables</a>
+    <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" (click)="activePane=0" cNavLink>Tables</a>
     <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Add</a>
 
   </c-nav>
-  <c-tab-content #tabContent="cTabContent">
+  <c-tab-content #tabContent="cTabContent"[activeTabPaneIdx]="activePane">
     <c-tab-pane class="p-3">
 
     <div class="row mt-3" >
@@ -116,7 +116,7 @@
               <td cdk-cell *cdkCellDef="let element">{{element.id}}</td>
             </ng-container> -->
             <tr cdk-header-row *cdkHeaderRowDef="DisplayedColumns"></tr>
-            <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns"></tr>
+            <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns" (click)="gotoDetail(element)"></tr>
             <tr cdk-footer-row *cdkFooterRowDef="DisplayedColumns; sticky: true"></tr>
           </table>
           <p *ngIf="(dataSource | async)?.length == 0" class="text-center">No Data Found</p>
@@ -128,7 +128,7 @@
     </c-tab-pane>
     <c-tab-pane class="p-3">
 
-  <app-table-detail></app-table-detail>
+  <app-table-detail [data]="selecteddata"></app-table-detail>
     </c-tab-pane>
 
   </c-tab-content>
