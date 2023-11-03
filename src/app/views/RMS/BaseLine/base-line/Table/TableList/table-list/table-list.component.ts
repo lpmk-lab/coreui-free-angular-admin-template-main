@@ -190,6 +190,7 @@ gotoDetail(element:ITable):void{
  this.selecteddata=element;
  this.activePane = 1;
 }
+
 }
 
 

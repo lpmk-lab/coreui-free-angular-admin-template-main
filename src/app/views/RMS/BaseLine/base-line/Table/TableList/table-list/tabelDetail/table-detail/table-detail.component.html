@@ -1,19 +1,29 @@
 <c-container>
   <c-card class="mb-4">
     <c-card-header>
-      <form cForm>
+      <h5 *ngIf="data.tableId" >Edit Table </h5>
+      <h5 *ngIf="!data.tableId" >Add Table </h5>
+      <hr>
+      <form  [formGroup]="TableFrom" (submit)="Save()"  class="form-group" tableName>
         <c-row class="mb-3">
           <label cLabel="col" cCol [sm]="2" for="Tabelname">
             Table Name
           </label>
           <c-col [sm]="4">
-            <input cFormControl id="Tabelname" type="text" [(ngModel)]="data.tableName" name="tablename" />
+            <input class="form-control"
+            [ngStyle]="{'border-color': (TableFrom.controls.tableName.invalid && TableFrom.controls.tableName.touched) ? 'red' : '#b1b7c1'}"
+            formControlName="tableName"  type="text" [(ngModel)]="data.tableName" name="tablename" />
+            <div  class="errorMessage" *ngIf="TableFrom.controls.tableName.invalid && TableFrom.controls.tableName.touched">Table Name is required.</div>
           </c-col>
           <label cLabel="col" cCol [sm]="2" for="TabelNo" style="text-align: right;">
             Tabel No
           </label>
           <c-col [sm]="4">
-            <input cFormControl id="TabelNo" type="text"  [(ngModel)]="data.tableNo" name="tableno" />
+            <input class="form-control"
+            [ngStyle]="{'border-color': (TableFrom.controls.tableNo.invalid && TableFrom.controls.tableNo.touched) ? 'red' : '#b1b7c1'}"
+            formControlName="tableNo" type="text"  [(ngModel)]="data.tableNo" name="tableno" />
+            <div class="errorMessage" *ngIf="TableFrom.controls.tableNo.invalid && TableFrom.controls.tableNo.touched">Table No is required.</div>
+
           </c-col>
         </c-row>
         <c-row class="mb-3">
@@ -21,7 +31,7 @@
             Status
           </label>
           <c-col [sm]="4">
-          <select aria-label="Default select example" id="status" [(ngModel)]="data.status" name="status" cSelect>
+          <select formControlName="status" [(ngModel)]="data.status" name="status" cSelect>
 
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
@@ -33,14 +43,14 @@
             location
           </label>
           <c-col [sm]="4">
-            <textarea cFormControl id="location" rows="3" [(ngModel)]="data.location" name="location"></textarea>
+            <textarea formControlName="location"  cFormControl id="location" rows="3" [(ngModel)]="data.location" name="location"></textarea>
           </c-col>
         </c-row>
         <c-row class="mb-3">
           <c-col [sm]="2"></c-col>
-          <c-col [sm]="1"><button cButton  color="success" (click)="Save()" type="submit">Save</button></c-col>
-          <c-col [sm]="1"><button cButton  color="primary" (click)="New()" type="submit">New</button></c-col>
-          <c-col [sm]="1"><button cButton  color="danger" (click)="Save()" type="submit">Delete</button></c-col>
+          <c-col [sm]="1"><button cButton  color="success" [disabled]="!TableFrom.valid" type="submit">Save</button></c-col>
+          <c-col [sm]="1"><button cButton  color="primary" (click)="New()" >New</button></c-col>
+          <c-col [sm]="1"><button cButton  color="danger" (click)="Save()" [disabled]="!TableFrom.valid" >Delete</button></c-col>
 
       </c-row>
 

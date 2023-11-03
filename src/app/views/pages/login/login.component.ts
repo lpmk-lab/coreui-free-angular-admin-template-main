@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import{LoginService} from '../../../services/auths/login.service'
 import{AlertServiceService} from "../../../services/Common/alert-service.service"
 import{LocalStorageService} from "../../../services/Common/local-storage.service"
@@ -21,6 +22,13 @@ export class LoginComponent {
     private localStorageService:LocalStorageService,
     public Loader:LoaderService
     ) { }
+
+
+
+
+
+
+
   onSubmit1() {
     this.customStylesValidated = true;
     if(this.username!="" && this.password!=""){

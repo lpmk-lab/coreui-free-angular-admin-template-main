@@ -8,7 +8,7 @@ import { TableListComponent } from './Table/TableList/table-list/table-list.comp
 import { CardModule, GridModule, NavModule, TabsModule,FormModule,ButtonModule } from '@coreui/angular';
 import { IconModule } from '@coreui/icons-angular';
 import { TableDetailComponent } from './Table/TableList/table-list/tabelDetail/table-detail/table-detail.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { TableDetailComponent } from './Table/TableList/table-list/tabelDetail/t
     FormsModule,
     NgbModule,
     IconModule,
-    ButtonModule
+    ButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class BaseLineModule { }
