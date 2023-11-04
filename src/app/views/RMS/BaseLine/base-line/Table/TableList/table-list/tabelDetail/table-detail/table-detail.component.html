@@ -1,10 +1,26 @@
 <c-container>
   <c-card class="mb-4">
     <c-card-header>
+      <form  [formGroup]="TableFrom" (submit)="Save()"  class="form-group" tableName>
+      <c-row class="mb-3">
+        <c-col [sm]="9">
       <h5 *ngIf="data.tableId" >Edit Table </h5>
       <h5 *ngIf="!data.tableId" >Add Table </h5>
+    </c-col>
+
+        <c-col [sm]="3">
+          <c-button-group aria-label="Basic mixed styles example" role="group">
+            <button cButton color="success"[disabled]="!TableFrom.valid" type="submit">Save</button>
+            <button cButton color="primary"(click)="New()" >New</button>
+            <button cButton color="danger"(click)="delete()" [disabled]="!data.tableId" >Delete</button>
+          </c-button-group>
+        </c-col>
+
+
+    </c-row>
+
       <hr>
-      <form  [formGroup]="TableFrom" (submit)="Save()"  class="form-group" tableName>
+
         <c-row class="mb-3">
           <label cLabel="col" cCol [sm]="2" for="Tabelname">
             Table Name
@@ -46,13 +62,6 @@
             <textarea formControlName="location"  cFormControl id="location" rows="3" [(ngModel)]="data.location" name="location"></textarea>
           </c-col>
         </c-row>
-        <c-row class="mb-3">
-          <c-col [sm]="2"></c-col>
-          <c-col [sm]="1"><button cButton  color="success" [disabled]="!TableFrom.valid" type="submit">Save</button></c-col>
-          <c-col [sm]="1"><button cButton  color="primary" (click)="New()" >New</button></c-col>
-          <c-col [sm]="1"><button cButton  color="danger" (click)="Save()" [disabled]="!TableFrom.valid" >Delete</button></c-col>
-
-      </c-row>
 
 
       </form>

@@ -36,7 +36,8 @@ export class LoginComponent {
         "email":this.username,
         "password":this.password
       }
-      this.loginService.doLogin(obj).subscribe((response: any) => {
+      this.loginService.doLogin(obj).toPromise()
+      .then((response: any) => {
         console.log(response);
         this.AlertService.successNotification("Success","Login Successfully")
         let JsonUser={

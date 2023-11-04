@@ -8,7 +8,9 @@ import{environment} from "../../../environments/environment"
 })
 export class ApiServiceService {
 
-  constructor(private http:HttpClient,
+  constructor(
+    private userService:UserService,
+    private http:HttpClient,
     private localStorageService:LocalStorageService,
     private userSerive:UserService
     ) { }
@@ -35,6 +37,15 @@ export class ApiServiceService {
     "Bearer "+ token
   );
   return this.http.post<any>(this.apiLink+url,data ,{headers:header}, );
+}
+DeleteMethodWithTokenHeader(url:string){
+  let token="";
+  token=this.userSerive.getUserToken();
+  let header = new HttpHeaders().set(
+    "Authorization",
+    "Bearer "+ token
+  );
+  return this.http.delete<any>(this.apiLink+url+'/'+this.userService.getUserID() ,{headers:header}, );
 }
 
 }

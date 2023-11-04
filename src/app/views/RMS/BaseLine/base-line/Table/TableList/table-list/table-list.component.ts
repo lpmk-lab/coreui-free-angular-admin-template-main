@@ -62,7 +62,8 @@ get DisplayedColumns(){
   ;
 }
 DownLoadtableList(){
-  this.tableService.GetAllTable().subscribe((response: any) => {
+  this.tableService.GetAllTable().toPromise()
+  .then((response: any) => {
     this.dataList=response;
     if(this.localStorageService.get(this.STORAGE_KEY)!=null){
       const preferences=JSON.parse(this.localStorageService.get(this.STORAGE_KEY)||'');

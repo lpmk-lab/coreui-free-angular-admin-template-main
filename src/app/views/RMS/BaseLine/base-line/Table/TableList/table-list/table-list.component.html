@@ -117,7 +117,9 @@
             </ng-container> -->
             <tr cdk-header-row *cdkHeaderRowDef="DisplayedColumns; sticky:true"></tr>
             <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns" (click)="gotoDetail(element)"></tr>
-            <tr cdk-footer-row *cdkFooterRowDef="DisplayedColumns; sticky: true"></tr>
+
+            <tr cdk-footer-row  *cdkFooterRowDef="DisplayedColumns; sticky: true;" ></tr>
+
           </table>
           <p *ngIf="(dataSource | async)?.length == 0" class="text-center">No Data Found</p>
         </div>

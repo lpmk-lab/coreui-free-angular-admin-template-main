@@ -67,7 +67,8 @@ export class TableDetailComponent {
         "status": this.data.status,
 
       }
-      this.tableService.Save(obj).subscribe((response: any) => {
+      this.tableService.Save(obj).toPromise()
+      .then((response: any) => {
 
         this.AlertService.successNotification("Success","Save Successfully")
         this.data={
@@ -86,6 +87,20 @@ export class TableDetailComponent {
         this.DownLoadtableList.emit();
     });
     }
+
+
+
+  }
+  delete(){
+    if(this.data.tableId){
+    this.tableService.Delete(this.data.tableId).toPromise()
+    .then((response: any) => {
+
+      this.AlertService.successNotification("Success","Delete Successfully")
+      this.New();
+      this.DownLoadtableList.emit();
+  });
+}
 
   }
 }

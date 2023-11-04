@@ -17,4 +17,9 @@ export class TableService {
     return this.apiService.PostMethodWithTokenHeader(url,obj)
 
   }
+  public Delete(id: string):any{
+    const url = '/master/tabels/delete/'+id;
+    return this.apiService.DeleteMethodWithTokenHeader(url)
+
+  }
 }
