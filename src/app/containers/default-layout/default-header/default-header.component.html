@@ -1,34 +1,36 @@
 <!--<c-header class="mb-4 d-print-none" position="sticky">-->
   <ng-container>
-    <c-container [fluid]="true">
-      <button
-        toggle="visible"
-        cHeaderToggler
-        [cSidebarToggle]="sidebarId"
-        class="ps-1"
-      >
-        <svg cIcon
-          name="cilMenu"
-          size="lg"
-        ></svg>
-      </button>
+
+
       <c-header-nav class="d-none d-lg-flex me-auto">
-        <c-nav-item>
-          <a cNavLink routerLink="/dashboard" routerLinkActive="active">
+        <!-- <c-nav-item> -->
+          <!-- <a cNavLink routerLink="/dashboard" routerLinkActive="active">
             Dashboard
-          </a>
-        </c-nav-item>
-        <c-nav-item>
+          </a> -->
+          <button
+          toggle="visible"
+          cHeaderToggler
+          [cSidebarToggle]="sidebarId"
+          class="ps-1"
+        >
+        <i class="bi bi-list"></i>
+
+        </button>
+
+            <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
+
+        <!-- </c-nav-item> -->
+        <!-- <c-nav-item>
           <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
         </c-nav-item>
         <c-nav-item>
           <a cNavLink routerLink="/settings" routerLinkActive="active">
             Settings
           </a>
-        </c-nav-item>
+        </c-nav-item> -->
       </c-header-nav>
 
-      <c-header-nav class="d-none d-lg-flex">
+      <!-- <c-header-nav class="d-none d-lg-flex">
         <c-nav-item>
           <a routerLink="./" cNavLink>
             <svg cIcon name="cilBell" size="lg"></svg>
@@ -44,16 +46,14 @@
             <svg cIcon name="cilEnvelopeOpen" size="lg"></svg>
           </a>
         </c-nav-item>
-      </c-header-nav>
-      <c-header-nav class="ms-3">
+      </c-header-nav> -->
+      <!-- <c-header-nav class="ms-3">
         <ng-container *ngTemplateOutlet="userDropdown"></ng-container>
-      </c-header-nav>
+      </c-header-nav> -->
 
-    </c-container>
-    <c-header-divider></c-header-divider>
-    <c-container [fluid]="true">
-      <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
-    </c-container>
+
+    <!-- <c-header-divider></c-header-divider> -->
+
   </ng-container>
   <!--</c-header>-->
 

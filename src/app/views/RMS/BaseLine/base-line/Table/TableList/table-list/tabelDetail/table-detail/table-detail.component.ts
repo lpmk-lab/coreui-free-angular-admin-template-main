@@ -1,7 +1,9 @@
 import { Component,Input,Output, EventEmitter  } from '@angular/core';
 import { ITable } from '../../tabel-matterdata';
+import { cilSave,cilReload,cilDelete} from '@coreui/icons';
 
-import {FormControl,FormGroup,Validator, Validators} from '@angular/forms'
+import { IconSetService } from '@coreui/icons-angular';
+import {FormControl,FormGroup, Validators} from '@angular/forms'
 import{TableService} from '../../../../../../../../../services/Master/table.service'
 import{AlertServiceService} from "../../../../../../../../../services/Common/alert-service.service"
 import{UserService} from'../../../../../../../../../services/Common/user.service'
@@ -36,8 +38,9 @@ export class TableDetailComponent {
   constructor(private userService:UserService,
     private tableService:TableService,
     private AlertService:AlertServiceService,
+    public iconSet: IconSetService,
     ){
-
+      iconSet.icons = {cilSave,cilReload,cilDelete };
   }
   New(){
     this.TableFrom.reset({status:'Active'});
@@ -70,7 +73,8 @@ export class TableDetailComponent {
       this.tableService.Save(obj).toPromise()
       .then((response: any) => {
 
-        this.AlertService.successNotification("Success","Save Successfully")
+
+        this.AlertService.SuccesstinyAlert("Save Successfully")
         this.data={
           tableId: response.tableId,
           tableName: response.tableName,
@@ -96,7 +100,7 @@ export class TableDetailComponent {
     this.tableService.Delete(this.data.tableId).toPromise()
     .then((response: any) => {
 
-      this.AlertService.successNotification("Success","Delete Successfully")
+      this.AlertService.SuccesstinyAlert("Delete Successfully")
       this.New();
       this.DownLoadtableList.emit();
   });

@@ -3,16 +3,16 @@
     <c-card-header>
       <form  [formGroup]="TableFrom" (submit)="Save()"  class="form-group" tableName>
       <c-row class="mb-3">
-        <c-col [sm]="9">
+        <c-col [sm]="7">
       <h5 *ngIf="data.tableId" >Edit Table </h5>
       <h5 *ngIf="!data.tableId" >Add Table </h5>
     </c-col>
 
-        <c-col [sm]="3">
-          <c-button-group aria-label="Basic mixed styles example" role="group">
-            <button cButton color="success"[disabled]="!TableFrom.valid" type="submit">Save</button>
-            <button cButton color="primary"(click)="New()" >New</button>
-            <button cButton color="danger"(click)="delete()" [disabled]="!data.tableId" >Delete</button>
+        <c-col [sm]="5">
+          <c-button-group aria-label="Basic mixed styles example" role="group" >
+            <button cButton    color="success"[disabled]="!TableFrom.valid" type="submit"><svg cIcon name="cilSave" size="sm" title="Paper Plane Icon"></svg> | Save</button>
+            <button cButton color="primary"(click)="New()" ><svg cIcon name="cilReload" size="sm" title="Paper Plane Icon"></svg> | New</button>
+            <button cButton color="danger"(click)="delete()" [disabled]="!data.tableId" ><svg cIcon name="cilDelete" size="sm" title="Paper Plane Icon"></svg> | Delete</button>
           </c-button-group>
         </c-col>
 

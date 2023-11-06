@@ -20,6 +20,20 @@ export class AlertServiceService {
     })
 
   }
+  SuccesstinyAlert(Message: string) {
+    Swal.fire({
+
+      // title: 'Oops...',
+      text: Message,
+      position: 'top-end',
+      width: 400,
+      color: "Green",
+      showConfirmButton: false,
+      timer: 1500,
+
+    })
+
+  }
   successNotification(title: string, Message: string) {
     Swal.fire(title, Message, 'success');
   }

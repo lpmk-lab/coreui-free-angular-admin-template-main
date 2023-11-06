@@ -249,7 +249,11 @@ export const navItems: INavData[] = [
       {
         name: 'Table',
         url: '/baselines/tables'
-      }
+      },
+      {
+        name: 'Category',
+        url: '/baselines/categories'
+      },
     ]
   },
   // {

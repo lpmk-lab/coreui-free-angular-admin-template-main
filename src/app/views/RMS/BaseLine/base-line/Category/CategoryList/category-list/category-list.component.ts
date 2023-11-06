@@ -1,35 +1,33 @@
 import { Component, OnInit} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import{LocalStorageService} from '../../../../../../../services/Common/local-storage.service'
-import{ExportServiceService} from '../../../../../../../services/Common/export-service.service'
-import{TableService} from '../../../../../../../services/Master/table.service'
-
 import { IconSetService } from '@coreui/icons-angular';
+import { ExportServiceService } from 'src/app/services/Common/export-service.service';
+import { LocalStorageService } from 'src/app/services/Common/local-storage.service';
+import { CategoryService } from 'src/app/services/Master/category.service';
 import { cilFilter,cilPrint,cilSave,cilFile,cilReload} from '@coreui/icons';
-import { ITable } from './tabel-matterdata';
+import { ICategory } from './Category-matterdata';
 @Component({
-  selector: 'app-table-list',
-  templateUrl: './table-list.component.html',
-  styleUrls: ['./table-list.component.scss']
+  selector: 'app-category-list',
+  templateUrl: './category-list.component.html',
+  styleUrls: ['./category-list.component.scss']
 })
-export class TableListComponent implements OnInit{
+export class CategoryListComponent implements OnInit{
   constructor(
     private localStorageService:LocalStorageService,
     public iconSet: IconSetService,
     private exportService:ExportServiceService,
-    private tableService:TableService
+    private categorySerive:CategoryService,
+
     ){
       iconSet.icons = { cilFilter,cilPrint,cilSave,cilFile ,cilReload};
   }
-  public dataList:ITable[] = [];
+  public dataList:ICategory[] = [];
 
-    public selecteddata:ITable={
-      tableId: "",
-      tableName: "",
+    public selecteddata:ICategory={
+      categoryId: "",
+      categoryName: "",
 
-      tableNo: "",
-      location: "",
-      status: "Active",
+      categoryIcon: "",
       createdByCode: "",
       createdOn: "",
       modifiedOn:"",
@@ -37,14 +35,12 @@ export class TableListComponent implements OnInit{
     }
 
 
-readonly STORAGE_KEY:string='Table_data';
+readonly STORAGE_KEY:string='category_data';
 public columnList=[
-   {field:'tableName',label:'Table Name',visible:true},
-   {field:'tableNo',label:'Table No',visible:true},
-   {field:'location',label:'Location',visible:true},
-   {field:'status',label:'status',visible:true},
+   {field:'categoryName',label:'Category Name',visible:true},
+   {field:'categoryIcon',label:'Category Icon',visible:true}
 ]
-public dataSource =new BehaviorSubject<ITable[]>([]);
+public dataSource =new BehaviorSubject<ICategory[]>([]);
 
 public search="";
 public status="All";
@@ -61,8 +57,8 @@ get DisplayedColumns(){
   .map(column=>column.field)
   ;
 }
-DownLoadtableList(){
-  this.tableService.GetAllTable().toPromise()
+DownLoadcategoryList(){
+  this.categorySerive.GetAllCategory().toPromise()
   .then((response: any) => {
     this.dataList=response;
     if(this.localStorageService.get(this.STORAGE_KEY)!=null){
@@ -75,14 +71,14 @@ DownLoadtableList(){
         return column;
       });
     }
-    this.GetTableList();
+    this.GetCategoryList();
   })
 }
-GetTableList():void{
-  const items=this.dataList.filter((tables:ITable)=>{
-    let allowed=this.status==='All' || tables.status===this.status;
-if(allowed && this.search){
-  const matches=tables.tableName.toLocaleUpperCase().match(this.search.toLocaleUpperCase())||tables.location.toLocaleUpperCase().match(this.search.toLocaleUpperCase());
+GetCategoryList():void{
+  const items=this.dataList.filter((categorys:ICategory)=>{
+    let allowed:any=[];
+if( this.search){
+  const matches=categorys.categoryName.toLocaleUpperCase().match(this.search.toLocaleUpperCase())||categorys.categoryIcon.toLocaleUpperCase().match(this.search.toLocaleUpperCase());
   allowed = matches != null && matches.length>0;
 }
 return allowed;
@@ -120,10 +116,10 @@ doSort(field:string):void{
     this.sortKey=field;
     this.sortDirection=field;
   }
-  this.GetTableList();
+  this.GetCategoryList();
 }
 ngOnInit(): void {
-  this.DownLoadtableList();
+  this.DownLoadcategoryList();
 
 }
 
@@ -131,13 +127,12 @@ persistColumnPreference():void{
 this.localStorageService.set(this.STORAGE_KEY,JSON.stringify(this.columnList));
 }
 getRowList(){
-  let data=this.dataSource.value.map((data:ITable)=>{
+  let data=this.dataSource.value.map((data:ICategory)=>{
     return{
 
-      tableName: data.tableName,
-      tableNo: data.tableNo,
-      location:data.location,
-      status:data.status,
+      categoryName: data.categoryName,
+      categoryIcon: data.categoryIcon,
+
     };
   })
   return data
@@ -152,14 +147,14 @@ downloadAsPdf(type:string):void{
   let data=this.getRowList();
   const rows:any[]=[];
   data.forEach((element,index,array)=>{
-    rows.push([element.tableName,element.tableNo,element.location,element.status])
+    rows.push([element.categoryName,element.categoryIcon])
   })
 
   const rowList=rows;
   const headerlist=this.getHeaderList();
   const pdfData=this.exportService.convertToPdf(rowList,headerlist);
   if(type==='download'){
-    pdfData.save('Table List');
+    pdfData.save('Category List');
 
   }
   if(type==='print'){
@@ -183,17 +178,14 @@ downloadAsExcel():void{
   const objectUrl=URL.createObjectURL(csvBlob);
   const link:any=document.createElement('a');
 
-  link.download='Tablelist.csv';
+  link.download='Categorylist.csv';
   link.href=objectUrl;
   link.click();
 }
-gotoDetail(element:ITable):void{
+gotoDetail(element:ICategory):void{
  this.selecteddata=element;
  this.activePane = 1;
 }
 
 }
-
-
-
 
