@@ -48,7 +48,7 @@ export class LoginComponent {
         }
        this.localStorageService.set("userData",JSON.stringify(JsonUser))
 
-       this.routerService.navigate(['dashboard'])
+       this.routerService.navigate(['baselines'])
       })
     }
 
