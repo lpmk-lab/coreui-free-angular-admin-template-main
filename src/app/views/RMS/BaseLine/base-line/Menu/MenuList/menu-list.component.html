@@ -104,7 +104,7 @@
               <span class="cursor-pointer" (click)="doSort('cookingTimeString')">Cooking Time</span>
               <span *ngIf="sortKey==='cookingTimeString'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
               </th>
-              <td cdk-cell *cdkCellDef="let element">{{element.cookingTimeString}}</td>
+              <td cdk-cell *cdkCellDef="let element">{{element.cookingTimeString| number:'1.0':'en-US' }}</td>
               <th class='th-footer'cdk-footer-cell *cdkFooterCellDef></th>
             </ng-container>
             <ng-container cdkColumnDef="isNeedCookString">

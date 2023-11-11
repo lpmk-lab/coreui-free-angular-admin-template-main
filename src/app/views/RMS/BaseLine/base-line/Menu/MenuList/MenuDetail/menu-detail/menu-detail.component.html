@@ -60,8 +60,10 @@
          <c-col [sm]="3">
            <input class="form-control"
            [ngStyle]="{'border-color': (TableFrom.controls.CookingTime.invalid && TableFrom.controls.CookingTime.touched) ? 'red' : '#b1b7c1'}"
-           formControlName="CookingTime" type="text"  [ngModel]="data.cookingTime| number:'1.0':'en-US' " style="text-align: right;" name="tableno" />
-           <div class="errorMessage" *ngIf="TableFrom.controls.CookingTime.invalid && TableFrom.controls.CookingTime.touched">Only enter number.</div>
+           formControlName="CookingTime" type="text"  [ngModel]="data.cookingTime| number:'1.0':'en-US' "
+           (ngModelChange)="data.cookingTime=$event"
+           style="text-align: right;" name="tableno" />
+
          </c-col>
          <c-col [sm]="1">
          <span style="color: red; font-size: 12px;font-weight: bold; text-align: left;padding-bottom: 0px;">min</span>
