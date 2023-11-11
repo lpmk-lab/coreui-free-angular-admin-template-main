@@ -1,0 +1,105 @@
+<c-container>
+  <c-card class="mb-4">
+    <c-card-header>
+      <form  [formGroup]="TableFrom" (submit)="Save()"  class="form-group" tableName>
+      <c-row class="mb-3">
+        <c-col [sm]="7">
+      <h5 *ngIf="data.menuId" >Edit Menu </h5>
+      <h5 *ngIf="!data.menuId" >Add Menu </h5>
+    </c-col>
+
+        <c-col [sm]="5">
+          <c-button-group aria-label="Basic mixed styles example" role="group" >
+            <button cButton    color="success"[disabled]="!TableFrom.valid" type="submit"><svg cIcon name="cilSave" size="sm" title="Paper Plane Icon"></svg> | Save</button>
+            <button cButton color="primary"(click)="New()" ><svg cIcon name="cilReload" size="sm" title="Paper Plane Icon"></svg> | New</button>
+            <button cButton color="danger"(click)="delete()" [disabled]="!data.menuId" ><svg cIcon name="cilDelete" size="sm" title="Paper Plane Icon"></svg> | Delete</button>
+          </c-button-group>
+        </c-col>
+
+
+    </c-row>
+
+      <hr>
+      <c-row class="mb-3">
+        <c-col [sm]="8">
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" for="Tabelname">
+           Code
+          </label>
+          <c-col [sm]="4">
+            <input class="form-control"
+            [ngStyle]="{'border-color': (TableFrom.controls.menuCode.invalid && TableFrom.controls.menuCode.touched) ? 'red' : '#b1b7c1'}"
+            formControlName="menuCode"  type="text" [(ngModel)]="data.menuCode" name="tablename" />
+            <div  class="errorMessage" *ngIf="TableFrom.controls.menuCode.invalid && TableFrom.controls.menuCode.touched">Menu Code is required.</div>
+          </c-col>
+          <label cLabel="col" cCol [sm]="2" for="TabelNo" style="text-align: right;">
+             Name
+          </label>
+          <c-col [sm]="4">
+            <input class="form-control"
+            [ngStyle]="{'border-color': (TableFrom.controls.menuName.invalid && TableFrom.controls.menuName.touched) ? 'red' : '#b1b7c1'}"
+            formControlName="menuName" type="text"  [(ngModel)]="data.menuName" name="tableno" />
+            <div class="errorMessage" *ngIf="TableFrom.controls.menuName.invalid && TableFrom.controls.menuName.touched">Menu Name is required.</div>
+
+          </c-col>
+        </c-row>
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" >
+
+          </label>
+          <c-col [sm]="4">
+
+          <input class="form-check-input" formControlName="isNeedCook"  [(ngModel)]="data.isNeedCook"  type="checkbox" value="" id="isNeedCook">
+          <label class="form-check-label" for="isNeedCook">
+            Need Cooking?
+          </label>
+          </c-col>
+          <label cLabel="col" cCol [sm]="2" for="CookingTime" style="text-align: right;">
+             Time
+         </label>
+         <c-col [sm]="3">
+           <input class="form-control"
+           [ngStyle]="{'border-color': (TableFrom.controls.CookingTime.invalid && TableFrom.controls.CookingTime.touched) ? 'red' : '#b1b7c1'}"
+           formControlName="CookingTime" type="text"  [ngModel]="data.cookingTime| number:'1.0':'en-US' " style="text-align: right;" name="tableno" />
+           <div class="errorMessage" *ngIf="TableFrom.controls.CookingTime.invalid && TableFrom.controls.CookingTime.touched">Only enter number.</div>
+         </c-col>
+         <c-col [sm]="1">
+         <span style="color: red; font-size: 12px;font-weight: bold; text-align: left;padding-bottom: 0px;">min</span>
+         </c-col>
+        </c-row>
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" >
+
+          </label>
+
+
+          <c-col [sm]="4">
+            <input class="form-check-input" formControlName="isSubMenuId"   [(ngModel)]="data.isSubMenuId"  type="checkbox" value="" id="isSubMenuId">
+          <label class="form-check-label" for="isSubMenuId">
+           Is SubMenu ?
+          </label>
+          </c-col>
+        </c-row>
+</c-col>
+</c-row>
+      </form>
+
+</c-card-header>
+</c-card>
+<c-card *ngIf="data.menuId!=''">
+  <c-card-body>
+    <c-row>
+      <c-col>Created this record by {{data.createdByCode}} On  {{data.createdOn| date:'medium'}}</c-col>
+
+    </c-row>
+    <c-row>
+      <c-col>Modified this record by {{data.modifiedByCode}} On {{data.modifiedOn| date:'medium'}} </c-col>
+
+    </c-row>
+
+  </c-card-body>
+</c-card>
+
+
+</c-container>
+

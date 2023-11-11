@@ -11,7 +11,7 @@ export interface IMenu
   isNeedCook:string;
   cookingTime:string;
   cookingTimeString:string;
-  isSubMenuID:string;
+  isSubMenuId:string;
   isSubMenuIDString:string;
   isNeedCookString:string;
   createdByCode: string;

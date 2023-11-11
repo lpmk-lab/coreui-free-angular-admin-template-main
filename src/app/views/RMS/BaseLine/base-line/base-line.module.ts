@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CategoryListComponent } from './Category/CategoryList/category-list/category-list.component';
 import { CategoryDetailComponent } from './Category/CategoryList/category-list/CategoryDetail/category-detail/category-detail.component';
 import { MenuListComponent } from './Menu/MenuList/menu-list.component';
+import { MenuDetailComponent } from './Menu/MenuList/MenuDetail/menu-detail/menu-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MenuListComponent } from './Menu/MenuList/menu-list.component';
     TableDetailComponent,
     CategoryListComponent,
     CategoryDetailComponent,
-    MenuListComponent
+    MenuListComponent,
+    MenuDetailComponent
   ],
   imports: [
     CommonModule,

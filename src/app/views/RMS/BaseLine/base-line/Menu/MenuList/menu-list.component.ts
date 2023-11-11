@@ -34,7 +34,7 @@ export class MenuListComponent implements OnInit {
   isNeedCook:"",
   cookingTime:"",
   cookingTimeString:"",
-  isSubMenuID:"",
+  isSubMenuId:"",
   isSubMenuIDString:"",
   isNeedCookString:"",
   createdByCode: "",
@@ -102,7 +102,7 @@ return allowed;
   if(this.sortKey){
     items.sort((x,y)=>{
     let xField,yField;
-    if(['id'].indexOf(this.sortKey)!==-1){
+    if(['cookingTimeString'].indexOf(this.sortKey)!==-1){
       xField=Number(x[this.sortKey]);
       yField=Number(y[this.sortKey]);
     }else{
@@ -154,7 +154,7 @@ getRowList(){
       isNeedCookString:data.isNeedCookString,
       cookingTime:data.cookingTime,
       cookingTimeString:data.cookingTimeString,
-      isSubMenuID:data.isSubMenuID,
+      isSubMenuID:data.isSubMenuId,
       categoryName:data.categoryName,
       isSubMenuIDString:data.isSubMenuIDString,
       createdByCode:data.createdByCode,
