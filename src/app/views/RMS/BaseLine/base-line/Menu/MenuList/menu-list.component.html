@@ -1,0 +1,172 @@
+<c-container>
+  <c-card class="mb-4">
+    <c-card-header>
+  <c-nav variant="tabs">
+    <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" (click)="activePane=0" cNavLink>Menus</a>
+    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Add</a>
+
+  </c-nav>
+  <c-tab-content #tabContent="cTabContent"[activeTabPaneIdx]="activePane">
+    <c-tab-pane class="p-3">
+
+    <div class="row mt-3" style="height: 27px; " >
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="search"
+        (keyup)="GetMenuList()" placeholder="Search By Menu Name">
+      </div>
+      <div class="col-md-2">
+       <select id="status" class="form-select" [(ngModel)]="status" (change)="GetMenuList()">
+
+        <option value="All" >All</option>
+        <option value="True">Need Cook</option>
+        <option value="False">No Need Cook</option>
+       </select>
+       <label for="status"></label>
+      </div>
+      <div class="col-md-1 custom-drop-down" >
+        <div class="d-inline-block" [autoClose]="true" ngbDropdown>
+          <button class="btn btn-outline-dark custom-select" ngbDropdownToggle>
+
+            <i class="bi bi-funnel"></i>
+
+        </button>
+        <div ngbDropdownMenu>
+          <div *ngFor="let column of columnList;let i=index">
+            <input id="checkbox{{i}}" type="checkbox" class="custom-control-input"
+            [(ngModel)]="column.visible" (change)="persistColumnPreference()" value=""/>
+            <label for="checkbox{{i}}" class="custom-control-lable">{{column.label}}</label>
+
+
+          </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="col-md-2 text-center">
+          <div class="btn-group" role="group">
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="PDF" (click)="downloadAsPdf('download')">
+            <i class="bi bi-file-pdf"></i></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Print" (click)="downloadAsPdf('print')">
+           <i class="bi bi-printer"></i></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Excel" (click)="downloadAsExcel()">
+           <i class="bi bi-file-earmark-excel"></i></button>
+          </div>
+
+        </div>
+        <div class="col-md-1 text-left">
+         <div>
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="Refresh" (click)="DownLoadmenuList()">
+            <i class="bi bi-arrow-clockwise"></i></button>
+          </div>
+          </div>
+    </div>
+
+
+
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="table-responsive"  style="max-height: 600px; overflow: auto">
+          <table class="table table-hover" cdk-table [dataSource]="dataSource">
+
+            <ng-container cdkColumnDef="menuName">
+              <th cdk-header-cell *cdkHeaderCellDef>
+                <span class="cursor-pointer" (click)="doSort('menuName')">Menu Name</span>
+                <span *ngIf="sortKey==='menuName'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.menuName}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef>{{rowCount}} rows</th>
+            </ng-container>
+            <ng-container cdkColumnDef="menuCode">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('menuCode')">Menu Code</span>
+                <span *ngIf="sortKey==='menuCode'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+                </th>
+
+              <td cdk-cell *cdkCellDef="let element">{{element.menuCode}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <ng-container cdkColumnDef="categoryName">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('categoryName')">Category Name</span>
+                <span *ngIf="sortKey==='categoryName'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+                </th>
+
+              <td cdk-cell *cdkCellDef="let element">{{element.categoryName}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <ng-container cdkColumnDef="cookingTimeString">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('cookingTimeString')">Cooking Time</span>
+              <span *ngIf="sortKey==='cookingTimeString'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.cookingTimeString}}</td>
+              <th class='th-footer'cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <ng-container cdkColumnDef="isNeedCookString">
+              <th cdk-header-cell *cdkHeaderCellDef>Need Cook</th>
+                <td cdk-cell *cdkCellDef="let element">
+                  <label class="label label-success" *ngIf="element.isNeedCookString==='True'"><i class="bi bi-arrow-up-right"></i></label>
+                  <label class="label label-danger" *ngIf="element.isNeedCookString==='False'"><i class="bi bi-x"></i></label>
+
+                </td>
+                <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+
+            </ng-container>
+            <ng-container cdkColumnDef="isSubMenuIDString">
+              <th cdk-header-cell *cdkHeaderCellDef>Sub Menu</th>
+                <td cdk-cell *cdkCellDef="let element">
+                  <label class="label label-success" *ngIf="element.isSubMenuIDString==='True'"><i class="bi bi-arrow-up-right"></i></label>
+                  <label class="label label-danger" *ngIf="element.isSubMenuIDString==='False'"><i class="bi bi-x"></i></label>
+
+                </td>
+                <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+
+            </ng-container>
+
+            <ng-container cdkColumnDef="photoUrl">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('cookingTimeString')">Photo</span>
+              <!-- <span *ngIf="sortKey==='photoUrl'">{{sortDirection==='asc'?'↑' :'↓'}}</span> -->
+              </th>
+              <td cdk-cell *cdkCellDef="let element">
+                <img src="{{element.photoUrl}} " alt="" width="50"  *ngIf="element.photoUrl===''">
+                <img src="{{element.photoUrl}}" alt="" width="50" *ngIf="element.photoUrl!==''">
+
+              </td>
+              <th class='th-footer'cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+            <!-- <ng-container cdkColumnDef="id" style="display: none;">
+              <th cdk-header-cell *cdkHeaderCellDef>
+              <span class="cursor-pointer" (click)="doSort('id')">id</span>
+              <span *ngIf="sortKey==='id'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.id}}</td>
+            </ng-container> -->
+            <tr cdk-header-row *cdkHeaderRowDef="DisplayedColumns; sticky:true"></tr>
+            <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns" (click)="gotoDetail(element)"></tr>
+
+            <tr cdk-footer-row  *cdkFooterRowDef="DisplayedColumns; sticky: true;" ></tr>
+
+          </table>
+          <p *ngIf="(dataSource | async)?.length == 0" class="text-center">No Data Found</p>
+        </div>
+      </div>
+
+
+</div>
+    </c-tab-pane>
+    <c-tab-pane class="p-3">
+
+ <!-- <app-table-detail [data]="selecteddata" (DownLoadtableList)="DownLoadtableList()"></app-table-detail> -->
+    </c-tab-pane>
+
+  </c-tab-content>
+</c-card-header>
+</c-card>
+
+</c-container>

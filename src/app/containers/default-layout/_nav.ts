@@ -16,6 +16,10 @@ export const navItems: INavData[] = [
         name: 'Category',
         url: '/baselines/categories'
       },
+      {
+        name: 'Menu',
+        url: '/baselines/menus'
+      },
     ]
   },
 
