@@ -82,6 +82,15 @@
           </label>
           </c-col>
         </c-row>
+        <c-row class="mb-3">
+          <label cLabel="col" cCol [sm]="2" for="Tabelname">
+           Category
+          </label>
+          <c-col [sm]="4">
+      <app-category-auto-complete [seletedName]="data.categoryName" [seletedID]="data.categoryId" (ChangeCategory)="ChangeCategory($event)" ></app-category-auto-complete>
+          </c-col>
+
+        </c-row>
 </c-col>
 </c-row>
       </form>

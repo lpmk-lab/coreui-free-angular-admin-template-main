@@ -13,6 +13,8 @@ import { CategoryListComponent } from './Category/CategoryList/category-list/cat
 import { CategoryDetailComponent } from './Category/CategoryList/category-list/CategoryDetail/category-detail/category-detail.component';
 import { MenuListComponent } from './Menu/MenuList/menu-list.component';
 import { MenuDetailComponent } from './Menu/MenuList/MenuDetail/menu-detail/menu-detail.component';
+import { CategoryAutoCompleteComponent } from './../../../../autocomplete/category/category-auto-complete/category-auto-complete.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { MenuDetailComponent } from './Menu/MenuList/MenuDetail/menu-detail/menu
     CategoryListComponent,
     CategoryDetailComponent,
     MenuListComponent,
-    MenuDetailComponent
+    MenuDetailComponent,
+    CategoryAutoCompleteComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,9 @@ import { MenuDetailComponent } from './Menu/MenuList/MenuDetail/menu-detail/menu
     IconModule,
     ButtonModule,
     ButtonGroupModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
+    FormsModule
   ]
 })
 export class BaseLineModule { }

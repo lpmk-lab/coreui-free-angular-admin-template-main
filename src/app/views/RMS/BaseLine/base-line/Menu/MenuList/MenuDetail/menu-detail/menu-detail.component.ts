@@ -132,5 +132,11 @@ export class MenuDetailComponent {
 
   }
 
+  ChangeCategory(CategoryIDandName :string){
+    this.data.categoryId=CategoryIDandName.split("~", 2)[0];
+    this.data.categoryName=CategoryIDandName.split("~", 2)[1];
+
+  }
+
 }
 

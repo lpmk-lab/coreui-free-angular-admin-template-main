@@ -1,0 +1,25 @@
+<ng-container [formGroup]="form">
+<!-- <div class="search-box" >
+<input class="form-control"
+formControlName="categoryName"  [(ngModel)]="seletedName" type="text" name="CategoryName" (keyup)="GetCategoryList()" autocomplete="off"   />
+
+<div class="result-box">
+
+  <ul *ngIf="filterdataList.length>0">
+    <li *ngFor="let item of filterdataList;" (click)="selectCategory(item.categoryId,item.categoryName)">
+      <span>{{item.categoryName}}</span>
+   </li>
+  </ul>
+</div>
+<input class="form-control"
+formControlName="categoryId"  [(ngModel)]="seletedID" type="text" name="CategoryID" (change)="change()" style="display:none" />
+</div> -->
+<ng-select [(ngModel)]="seletedID"  class="form-control" (change)="change()" class="custom"
+formControlName="categoryId" >
+  <ng-option *ngFor="let item of dataList"  [value]="item.categoryId">{{item.categoryName}}</ng-option>
+</ng-select>
+</ng-container>
+
+
+
+
