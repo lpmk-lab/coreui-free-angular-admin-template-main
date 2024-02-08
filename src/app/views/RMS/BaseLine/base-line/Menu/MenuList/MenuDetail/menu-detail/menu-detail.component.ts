@@ -7,6 +7,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MenuService } from '../../../../../../../../services/Master/menu.service'
 import { AlertServiceService } from "../../../../../../../../services/Common/alert-service.service"
 import { UserService } from '../../../../../../../../services/Common/user.service';
+import { ModalService } from '../../../../../../../../services/Common/modal.service';
+import { UploadPhotoService } from '../../../../../../../../services/Common/upload-photo.service';
+import { result } from 'lodash-es';
 
 @Component({
   selector: 'app-menu-detail',
@@ -15,6 +18,8 @@ import { UserService } from '../../../../../../../../services/Common/user.servic
 })
 export class MenuDetailComponent {
   @Output() DownLoadmenuList: EventEmitter<any> = new EventEmitter();
+  uploadImage:any
+  file!:File
   @Input() data: IMenu = {
     menuId: "",
     menuCode: "",
@@ -48,6 +53,8 @@ export class MenuDetailComponent {
     private menuService: MenuService,
     private AlertService: AlertServiceService,
     public iconSet: IconSetService,
+    public ModalService:ModalService,
+    public uploadPhotoService:UploadPhotoService,
   ) {
     iconSet.icons = { cilSave, cilReload, cilDelete };
   }
@@ -136,6 +143,31 @@ export class MenuDetailComponent {
     this.data.categoryId=CategoryIDandName.split("~", 2)[0];
     this.data.categoryName=CategoryIDandName.split("~", 2)[1];
 
+  }
+  openUploadModel(content :any){
+    this.ModalService.open(content);
+    this.uploadImage=this.data.photoUrl;
+  }
+  ProceedUpload(){
+    let formdata=new FormData();
+    formdata.append("file",this.file,this.data.menuId)
+    this.uploadPhotoService.Upload(formdata).subscribe((result:any)=>{
+      this.data.photoUrl="";
+      this.data.photoUrl=result.photoUrl;
+
+      this.AlertService.SuccesstinyAlert("Save Successfully")
+    })
+  }
+  open(){
+    // this.moe
+  }
+  onFileUploadChange(event:any){
+    let reader=new FileReader();
+    this.file=event.target.files[0];
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload=()=>{
+      this.uploadImage=reader.result;
+    }
   }
 
 }

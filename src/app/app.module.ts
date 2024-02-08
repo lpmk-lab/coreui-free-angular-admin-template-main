@@ -39,6 +39,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { ProfileUploadComponent } from './PhotoUpload/profile-upload/profile-upload.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -48,7 +49,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS,],
+  declarations: [AppComponent, ...APP_CONTAINERS, ProfileUploadComponent,],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -92,6 +92,20 @@
 
         </c-row>
 </c-col>
+
+<c-col [sm]="4">
+  <c-row class="mb-3">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" [src]="data.photoUrl" alt="Card image cap">
+      <div class="card-body">
+        <button cButton   (click)="openUploadModel(content)" color="dark"[disabled]="!TableFrom.valid" ><svg cIcon name="cilSave" size="sm" title="Paper Plane Icon"></svg> | Upload Photo</button>
+      </div>
+    </div>
+
+
+
+    </c-row>
+</c-col>
 </c-row>
       </form>
 
@@ -111,6 +125,25 @@
   </c-card-body>
 </c-card>
 
-
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">upload Image</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+        <input type="file" class="form-control" style="margin-bottom: 10px;" (change)="onFileUploadChange($event)">
+        <img [src]="uploadImage" style="width:200px ;height: 200px;">
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="ProceedUpload()">Save</button>
+	</div>
+</ng-template>
 </c-container>
+
+
+
 
