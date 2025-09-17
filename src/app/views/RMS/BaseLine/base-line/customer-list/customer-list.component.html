@@ -1,0 +1,108 @@
+<c-container>
+  <c-card class="mb-4">
+    <c-card-header>
+  <c-nav variant="tabs">
+    <a [active]="true" [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="0" (click)="activePane=0" cNavLink>Tables</a>
+    <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink>Add</a>
+
+  </c-nav>
+  <c-tab-content #tabContent="cTabContent"[activeTabPaneIdx]="activePane">
+    <c-tab-pane class="p-3">
+
+    <div class="row mt-3" style="height: 27px; " >
+      <div class="col-md-3">
+        <input type="text" class="form-control" [(ngModel)]="search"
+        (keyup)="GetCustomerList()" placeholder="Search By Customer Name">
+      </div>
+
+      <div class="col-md-1 custom-drop-down" >
+        <div class="d-inline-block" [autoClose]="true" ngbDropdown>
+          <button class="btn btn-outline-dark custom-select" ngbDropdownToggle>
+
+            <i class="bi bi-funnel"></i>
+
+        </button>
+        <div ngbDropdownMenu>
+          <div *ngFor="let column of columnList;let i=index">
+            <input id="checkbox{{i}}" type="checkbox" class="custom-control-input"
+            [(ngModel)]="column.visible" (change)="persistColumnPreference()" value=""/>
+            <label for="checkbox{{i}}" class="custom-control-lable">{{column.label}}</label>
+
+
+          </div>
+        </div>
+
+        </div>
+        </div>
+        <div class="col-md-2 text-center">
+          <div class="btn-group" role="group">
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="PDF" (click)="downloadAsPdf('download')">
+            <i class="bi bi-file-pdf"></i></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Print" (click)="downloadAsPdf('print')">
+           <i class="bi bi-printer"></i></button>
+           <button class="btn btn-secondary"
+           palcement="top" ngbTooltip="Excel" (click)="downloadAsExcel()">
+           <i class="bi bi-file-earmark-excel"></i></button>
+          </div>
+
+        </div>
+        <div class="col-md-1 text-left">
+         <div>
+            <button class="btn btn-secondary"
+            palcement="top" ngbTooltip="Refresh" (click)="DownLoadcategoryList()">
+            <i class="bi bi-arrow-clockwise"></i></button>
+          </div>
+          </div>
+    </div>
+
+
+
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="table-responsive"  style="max-height: 600px; overflow: auto">
+          <table class="table table-hover" cdk-table [dataSource]="dataSource">
+
+            <ng-container cdkColumnDef="customerName">
+              <th cdk-header-cell *cdkHeaderCellDef>
+                <span class="cursor-pointer" (click)="doSort('customerName')">Customer Name</span>
+                <span *ngIf="sortKey==='customerName'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.customerName}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef>{{rowCount}} rows</th>
+            </ng-container>
+            <ng-container cdkColumnDef="phoneNo">
+              <th cdk-header-cell *cdkHeaderCellDef>
+                <span class="cursor-pointer" (click)="doSort('phoneNo')">Phone No</span>
+                <span *ngIf="sortKey==='phoneNo'">{{sortDirection==='asc'?'↑' :'↓'}}</span>
+              </th>
+              <td cdk-cell *cdkCellDef="let element">{{element.phoneNo}}</td>
+              <th class='th-footer' cdk-footer-cell *cdkFooterCellDef></th>
+            </ng-container>
+
+
+            <tr cdk-header-row *cdkHeaderRowDef="DisplayedColumns; sticky:true"></tr>
+            <tr cdk-row *cdkRowDef="let element; columns: DisplayedColumns" (click)="gotoDetail(element)"></tr>
+
+            <tr cdk-footer-row  *cdkFooterRowDef="DisplayedColumns; sticky: true;" ></tr>
+
+          </table>
+          <p *ngIf="(dataSource | async)?.length == 0" class="text-center">No Data Found</p>
+        </div>
+      </div>
+
+
+</div>
+    </c-tab-pane>
+    <c-tab-pane class="p-3">
+
+  <app-customer-detail [data]="selecteddata" (DownLoadcategoryList)="DownLoadcategoryList()"></app-customer-detail >
+    </c-tab-pane>
+
+  </c-tab-content>
+</c-card-header>
+</c-card>
+
+</c-container>

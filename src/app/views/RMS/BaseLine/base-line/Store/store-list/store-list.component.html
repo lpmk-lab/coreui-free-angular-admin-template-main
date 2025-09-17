@@ -9,7 +9,7 @@
           [tabPaneIdx]="0"
           (click)="activePane = 0"
           cNavLink
-          >Menus</a
+          >Stores</a
         >
         <a [cTabContent]="tabContent" [routerLink] [tabPaneIdx]="1" cNavLink
           >Add</a
@@ -23,8 +23,8 @@
                 type="text"
                 class="form-control"
                 [(ngModel)]="search"
-                (keyup)="GetMenuList()"
-                placeholder="Search By Menu Name"
+                (keyup)="GetStoreList()"
+                placeholder="Search By Store Name"
               />
             </div>
             <div class="col-md-2">
@@ -32,7 +32,7 @@
                 id="status"
                 class="form-select"
                 [(ngModel)]="status"
-                (change)="GetMenuList()"
+                (change)="GetStoreList()"
               >
                 <option value="All">All</option>
                 <option value="True">Need Cook</option>
@@ -99,7 +99,7 @@
                   class="btn btn-secondary"
                   palcement="top"
                   ngbTooltip="Refresh"
-                  (click)="DownLoadmenuList()"
+                  (click)="DownLoadStoreList()"
                 >
                   <i class="bi bi-arrow-clockwise"></i>
                 </button>
@@ -118,34 +118,34 @@
                   cdk-table
                   [dataSource]="dataSource"
                 >
-                  <ng-container cdkColumnDef="menuName">
+                  <ng-container cdkColumnDef="storeName">
                     <th cdk-header-cell *cdkHeaderCellDef>
-                      <span class="cursor-pointer" (click)="doSort('menuName')"
-                        >Menu Name</span
+                      <span class="cursor-pointer" (click)="doSort('storeName')"
+                        >Store Name</span
                       >
-                      <span *ngIf="sortKey === 'menuName'">{{
+                      <span *ngIf="sortKey === 'storeName'">{{
                         sortDirection === "asc" ? "↑" : "↓"
                       }}</span>
                     </th>
                     <td cdk-cell *cdkCellDef="let element">
-                      {{ element.menuName }}
+                      {{ element.storeName }}
                     </td>
                     <th class="th-footer" cdk-footer-cell *cdkFooterCellDef>
                       {{ rowCount }} rows
                     </th>
                   </ng-container>
-                  <ng-container cdkColumnDef="menuCode">
+                  <ng-container cdkColumnDef="location">
                     <th cdk-header-cell *cdkHeaderCellDef>
-                      <span class="cursor-pointer" (click)="doSort('menuCode')"
-                        >Menu Code</span
+                      <span class="cursor-pointer" (click)="doSort('location')"
+                        >Location</span
                       >
-                      <span *ngIf="sortKey === 'menuCode'">{{
+                      <span *ngIf="sortKey === 'location'">{{
                         sortDirection === "asc" ? "↑" : "↓"
                       }}</span>
                     </th>
 
                     <td cdk-cell *cdkCellDef="let element">
-                      {{ element.menuCode }}
+                      {{ element.location }}
                     </td>
                     <th
                       class="th-footer"
@@ -153,20 +153,20 @@
                       *cdkFooterCellDef
                     ></th>
                   </ng-container>
-                  <ng-container cdkColumnDef="categoryName">
+                  <ng-container cdkColumnDef="phoneNumber">
                     <th cdk-header-cell *cdkHeaderCellDef>
                       <span
                         class="cursor-pointer"
-                        (click)="doSort('categoryName')"
-                        >Category Name</span
+                        (click)="doSort('phoneNumber')"
+                        >Phone</span
                       >
-                      <span *ngIf="sortKey === 'categoryName'">{{
+                      <span *ngIf="sortKey === 'phoneNumber'">{{
                         sortDirection === "asc" ? "↑" : "↓"
                       }}</span>
                     </th>
 
                     <td cdk-cell *cdkCellDef="let element">
-                      {{ element.categoryName }}
+                      {{ element.phoneNumber }}
                     </td>
                     <th
                       class="th-footer"
@@ -174,19 +174,20 @@
                       *cdkFooterCellDef
                     ></th>
                   </ng-container>
-                  <ng-container cdkColumnDef="cookingTimeString">
+                  <ng-container cdkColumnDef="managerName">
                     <th cdk-header-cell *cdkHeaderCellDef>
                       <span
                         class="cursor-pointer"
-                        (click)="doSort('cookingTimeString')"
-                        >Cooking Time</span
+                        (click)="doSort('managerName')"
+                        >Manager Name</span
                       >
-                      <span *ngIf="sortKey === 'cookingTimeString'">{{
+                      <span *ngIf="sortKey === 'managerName'">{{
                         sortDirection === "asc" ? "↑" : "↓"
                       }}</span>
                     </th>
+
                     <td cdk-cell *cdkCellDef="let element">
-                      {{ element.cookingTimeString | number : "1.0" : "en-US" }}
+                      {{ element.managerName }}
                     </td>
                     <th
                       class="th-footer"
@@ -194,17 +195,37 @@
                       *cdkFooterCellDef
                     ></th>
                   </ng-container>
-                  <ng-container cdkColumnDef="isNeedCookString">
-                    <th cdk-header-cell *cdkHeaderCellDef>Need Cook</th>
+                  <ng-container cdkColumnDef="email">
+                    <th cdk-header-cell *cdkHeaderCellDef>
+                      <span class="cursor-pointer" (click)="doSort('email')"
+                        >Email</span
+                      >
+                      <span *ngIf="sortKey === 'email'">{{
+                        sortDirection === "asc" ? "↑" : "↓"
+                      }}</span>
+                    </th>
+
+                    <td cdk-cell *cdkCellDef="let element">
+                      {{ element.email }}
+                    </td>
+                    <th
+                      class="th-footer"
+                      cdk-footer-cell
+                      *cdkFooterCellDef
+                    ></th>
+                  </ng-container>
+
+                  <ng-container cdkColumnDef="isSaleStore">
+                    <th cdk-header-cell *cdkHeaderCellDef>Sale Store</th>
                     <td cdk-cell *cdkCellDef="let element">
                       <label
                         class="label label-success"
-                        *ngIf="element.isNeedCookString === 'True'"
+                        *ngIf="element.isSaleStore === 'True'"
                         ><i class="bi bi-arrow-up-right"></i
                       ></label>
                       <label
                         class="label label-danger"
-                        *ngIf="element.isNeedCookString === 'False'"
+                        *ngIf="element.isSaleStore === 'False'"
                         ><i class="bi bi-x"></i
                       ></label>
                     </td>
@@ -214,56 +235,7 @@
                       *cdkFooterCellDef
                     ></th>
                   </ng-container>
-                  <ng-container cdkColumnDef="isSubMenuIDString">
-                    <th cdk-header-cell *cdkHeaderCellDef>Sub Menu</th>
-                    <td cdk-cell *cdkCellDef="let element">
-                      <label
-                        class="label label-success"
-                        *ngIf="element.isSubMenuIDString === 'True'"
-                        ><i class="bi bi-arrow-up-right"></i
-                      ></label>
-                      <label
-                        class="label label-danger"
-                        *ngIf="element.isSubMenuIDString === 'False'"
-                        ><i class="bi bi-x"></i
-                      ></label>
-                    </td>
-                    <th
-                      class="th-footer"
-                      cdk-footer-cell
-                      *cdkFooterCellDef
-                    ></th>
-                  </ng-container>
 
-                  <ng-container cdkColumnDef="photoUrl">
-                    <th cdk-header-cell *cdkHeaderCellDef>
-                      <span
-                        class="cursor-pointer"
-                        (click)="doSort('cookingTimeString')"
-                        >Photo</span
-                      >
-                      <!-- <span *ngIf="sortKey==='photoUrl'">{{sortDirection==='asc'?'↑' :'↓'}}</span> -->
-                    </th>
-                    <td cdk-cell *cdkCellDef="let element">
-                      <img
-                        src="{{ element.photoUrl }} "
-                        alt=""
-                        width="50"
-                        *ngIf="element.photoUrl === ''"
-                      />
-                      <img
-                        src="{{ element.photoUrl }}"
-                        alt=""
-                        width="50"
-                        *ngIf="element.photoUrl !== ''"
-                      />
-                    </td>
-                    <th
-                      class="th-footer"
-                      cdk-footer-cell
-                      *cdkFooterCellDef
-                    ></th>
-                  </ng-container>
                   <!-- <ng-container cdkColumnDef="id" style="display: none;">
               <th cdk-header-cell *cdkHeaderCellDef>
               <span class="cursor-pointer" (click)="doSort('id')">id</span>
@@ -297,10 +269,10 @@
           </div>
         </c-tab-pane>
         <c-tab-pane class="p-3">
-          <app-menu-detail
+          <app-store-detail
             [data]="selecteddata"
-            (DownLoadmenuList)="DownLoadmenuList()"
-          ></app-menu-detail>
+            (DownLoadstoreList)="DownLoadStoreList()"
+          ></app-store-detail>
         </c-tab-pane>
       </c-tab-content>
     </c-card-header>

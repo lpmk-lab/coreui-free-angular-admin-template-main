@@ -34,6 +34,17 @@ export class AlertServiceService {
     })
 
   }
+  confirmDeletion(): Promise<any> {
+    return Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you really want to delete this item?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    });
+  }
   successNotification(title: string, Message: string) {
     Swal.fire(title, Message, 'success');
   }

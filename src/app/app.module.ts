@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {
+  HashLocationStrategy,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import{RequestInterceptorService} from "../app/services/Common/request-interceptor.service"
+import { RequestInterceptorService } from '../app/services/Common/request-interceptor.service';
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
@@ -13,7 +17,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Import containers
-import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import {
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
+} from './containers';
 
 import {
   AvatarModule,
@@ -33,9 +41,7 @@ import {
   SharedModule,
   SidebarModule,
   TabsModule,
-  UtilitiesModule
-
-
+  UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -44,12 +50,11 @@ import { ProfileUploadComponent } from './PhotoUpload/profile-upload/profile-upl
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
-  DefaultLayoutComponent
-
+  DefaultLayoutComponent,
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, ProfileUploadComponent,],
+  declarations: [AppComponent, ...APP_CONTAINERS, ProfileUploadComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -77,18 +82,20 @@ const APP_CONTAINERS = [
     CardModule,
     NgScrollbarModule,
     HttpClientModule,
-
   ],
   providers: [
     {
       provide: LocationStrategy,
-      useClass: HashLocationStrategy
+      useClass: HashLocationStrategy,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptorService, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptorService,
+      multi: true,
+    },
     IconSetService,
-    Title
+    Title,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

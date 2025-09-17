@@ -21,7 +21,7 @@
 
       <hr>
       <c-row class="mb-3">
-        <c-col [sm]="8">
+        <c-col [sm]="9">
         <c-row class="mb-3">
           <label cLabel="col" cCol [sm]="2" for="Tabelname">
            Code
@@ -43,11 +43,11 @@
 
           </c-col>
         </c-row>
-        <c-row class="mb-3">
+        <c-row class="mb-3"style="display: none;">
           <label cLabel="col" cCol [sm]="2" >
 
           </label>
-          <c-col [sm]="4">
+          <c-col [sm]="4"  >
 
           <input class="form-check-input" formControlName="isNeedCook"  [(ngModel)]="data.isNeedCook"  type="checkbox" value="" id="isNeedCook">
           <label class="form-check-label" for="isNeedCook">
@@ -57,7 +57,7 @@
           <label cLabel="col" cCol [sm]="2" for="CookingTime" style="text-align: right;">
              Time
          </label>
-         <c-col [sm]="3">
+         <c-col [sm]="3" >
            <input class="form-control"
            [ngStyle]="{'border-color': (TableFrom.controls.CookingTime.invalid && TableFrom.controls.CookingTime.touched) ? 'red' : '#b1b7c1'}"
            formControlName="CookingTime" type="text"  [ngModel]="data.cookingTime| number:'1.0':'en-US' "
@@ -69,13 +69,13 @@
          <span style="color: red; font-size: 12px;font-weight: bold; text-align: left;padding-bottom: 0px;">min</span>
          </c-col>
         </c-row>
-        <c-row class="mb-3">
+        <c-row class="mb-3" style="display: none;">
           <label cLabel="col" cCol [sm]="2" >
 
           </label>
 
 
-          <c-col [sm]="4">
+          <c-col [sm]="4" style="display: none;">
             <input class="form-check-input" formControlName="isSubMenuId"   [(ngModel)]="data.isSubMenuId"  type="checkbox" value="" id="isSubMenuId">
           <label class="form-check-label" for="isSubMenuId">
            Is SubMenu ?
@@ -93,10 +93,10 @@
         </c-row>
 </c-col>
 
-<c-col [sm]="4">
+<c-col [sm]="3">
   <c-row class="mb-3">
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" [src]="data.photoUrl" alt="Card image cap">
+      <img class="card-img-top" style="width: 178px;height: 140px; padding: 20px;" [src]="data.photoUrl" alt="Card image cap" *ngIf="this.data.photoUrl!=''">
       <div class="card-body">
         <button cButton   (click)="openUploadModel(content)" color="dark"[disabled]="!TableFrom.valid" ><svg cIcon name="cilSave" size="sm" title="Paper Plane Icon"></svg> | Upload Photo</button>
       </div>
@@ -108,6 +108,9 @@
 </c-col>
 </c-row>
       </form>
+    <c-row>
+<app-item-unit-list [currentMenuID]="this.data.menuId"></app-item-unit-list>
+      </c-row>
 
 </c-card-header>
 </c-card>

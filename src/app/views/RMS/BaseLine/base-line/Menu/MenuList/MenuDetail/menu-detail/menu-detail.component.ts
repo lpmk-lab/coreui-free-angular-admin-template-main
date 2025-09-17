@@ -18,6 +18,7 @@ import { result } from 'lodash-es';
 })
 export class MenuDetailComponent {
   @Output() DownLoadmenuList: EventEmitter<any> = new EventEmitter();
+
   uploadImage:any
   file!:File
   @Input() data: IMenu = {
@@ -89,7 +90,9 @@ export class MenuDetailComponent {
         "PhotoURL": this.data.photoUrl,
         "CategoryID": this.data.categoryId,
         "isNeedCook": this.data.isNeedCook.toString(),
-        "CookingTime": this.data.cookingTime.toString(),
+        // "isNeedCook": this.data.isNeedCook.toString(),
+        // "CookingTime": this.data.cookingTime.toString(),
+         "CookingTime": "0",
         "isSubMenuID": this.data.isSubMenuId.toString(),
 
         "requestID": this.userService.getUserID()
@@ -128,6 +131,8 @@ export class MenuDetailComponent {
   }
   delete() {
     if (this.data.menuId) {
+      this.AlertService.confirmDeletion().then((result) => {
+        if (result.isConfirmed) {
       this.menuService.Delete(this.data.menuId).toPromise()
         .then((response: any) => {
 
@@ -135,6 +140,8 @@ export class MenuDetailComponent {
           this.New();
           this.DownLoadmenuList.emit();
         });
+    }
+  })
     }
 
   }

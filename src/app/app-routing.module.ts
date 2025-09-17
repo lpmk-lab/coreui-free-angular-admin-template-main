@@ -11,57 +11,58 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '',
     component: DefaultLayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Home',
     },
     children: [
-
       {
         path: 'pages',
         loadChildren: () =>
-          import('./views/pages/pages.module').then((m) => m.PagesModule)
+          import('./views/pages/pages.module').then((m) => m.PagesModule),
       },
       {
         path: 'baselines',
         loadChildren: () =>
-          import('./views/RMS/BaseLine/base-line/base-line.module').then((m) => m.BaseLineModule)
+          import('./views/RMS/BaseLine/base-line/base-line.module').then(
+            (m) => m.BaseLineModule
+          ),
       },
-    ]
+    ],
   },
   {
     path: '404',
     component: Page404Component,
     data: {
-      title: 'Page 404'
-    }
+      title: 'Page 404',
+    },
   },
   {
     path: '500',
     component: Page500Component,
     data: {
-      title: 'Page 500'
-    }
+      title: 'Page 500',
+    },
   },
   {
     path: 'login',
     component: LoginComponent,
     data: {
-      title: 'Login Page'
-    }
+      title: 'Login Page',
+    },
   },
   {
     path: 'register',
     component: RegisterComponent,
     data: {
-      title: 'Register Page'
-    }
+      title: 'Register Page',
+    },
   },
-  {path: '**', redirectTo: 'pages'}
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
@@ -69,11 +70,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

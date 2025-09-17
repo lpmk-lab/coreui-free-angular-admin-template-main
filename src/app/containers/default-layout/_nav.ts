@@ -1,8 +1,6 @@
 import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
-
-
   {
     name: 'BaseLine',
     url: '/baselines',
@@ -10,17 +8,24 @@ export const navItems: INavData[] = [
     children: [
       {
         name: 'Table',
-        url: '/baselines/tables'
+        url: '/baselines/tables',
       },
       {
         name: 'Category',
-        url: '/baselines/categories'
+        url: '/baselines/categories',
       },
       {
         name: 'Menu',
-        url: '/baselines/menus'
+        url: '/baselines/menus',
       },
-    ]
+      {
+        name: 'Customer',
+        url: '/baselines/customers',
+      },
+      {
+        name: 'Store',
+        url: '/baselines/stores',
+      },
+    ],
   },
-
- ];
+];
