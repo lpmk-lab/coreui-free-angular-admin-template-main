@@ -34,7 +34,7 @@ export class StoreListComponent {
     storeName: '',
     location: '',
     email: '',
-    isSaleStore: '',
+    isSaleStore: false,
     phoneNumber: '',
     managerName: '',
     createdByCode: '',
@@ -92,7 +92,9 @@ export class StoreListComponent {
   }
   GetStoreList(): void {
     const items = this.dataList.filter((Stores: IStore) => {
-      let allowed = this.status === 'All' || Stores.isSaleStore === this.status;
+      let allowed =
+        this.status === 'All' ||
+        (Stores.isSaleStore ? 'True' : 'False') === this.status;
       if (allowed && this.search) {
         const matches =
           Stores.storeName

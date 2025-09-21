@@ -35,8 +35,8 @@
                 (change)="GetStoreList()"
               >
                 <option value="All">All</option>
-                <option value="True">Need Cook</option>
-                <option value="False">No Need Cook</option>
+                <option value="True">Sale Store</option>
+                <option value="False">Not Sale Store</option>
               </select>
               <label for="status"></label>
             </div>
@@ -220,12 +220,12 @@
                     <td cdk-cell *cdkCellDef="let element">
                       <label
                         class="label label-success"
-                        *ngIf="element.isSaleStore === 'True'"
+                        *ngIf="element.isSaleStore"
                         ><i class="bi bi-arrow-up-right"></i
                       ></label>
                       <label
                         class="label label-danger"
-                        *ngIf="element.isSaleStore === 'False'"
+                        *ngIf="!element.isSaleStore"
                         ><i class="bi bi-x"></i
                       ></label>
                     </td>
